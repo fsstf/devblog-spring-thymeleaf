@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: cabecera('Nuevo')}"></head>
+<body>
+  <nav th:replace="~{fragments :: navbar}"></nav>
+
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white">Crear Post</div>
+          <div class="card-body">
+            <form th:action="@{/guardar}" th:object="${post}" method="post">
+              <div class="mb-3">
+                <label for="titulo" class="form-label"> Título</label>
+                <input type="text" class="form-control" id="titulo" name="titulo" th:field="*{title}" placeholder="Esbribe un título llamativo" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="contenido" class="form-label"> Contenido</label>
+                <textarea class="form-control" rows="6"
+                          th:field="*{content}"
+                          th:classappend="${#fields.hasErrors('content')}? 'is-invalid'"
+                          id="contenido"
+                          placeholder="¿Qué tienes en mente?"></textarea>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <a href="/" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-success">Publicar Post</button>
+              </div>
+              <!-- Campo oculto para pasar el ID -->
+              <input type="hidden" th:field="*{id}">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div th:replace="~{fragments :: scripts}"></div>
+</body>
+</html>
